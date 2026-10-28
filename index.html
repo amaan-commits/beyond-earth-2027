@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Beyond Earth 2027 – The Future of Commercial Space Tourism. 7–10 December 2027, Dubai Exhibition Centre, Expo City Dubai. Register your interest.">
+<meta property="og:title" content="Beyond Earth 2027 – The Future of Commercial Space Tourism">
+<meta property="og:description" content="7–10 Dec 2027 · Expo City Dubai · Register your interest">
+<meta property="og:image" content="poster.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%230A0F24'/%3E%3Cpath d='M16 6c4 3 5 8 4 13h-8c-1-5 0-10 4-13z' fill='%23FF7A3D'/%3E%3C/svg%3E">
+<title>Beyond Earth 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one long mission brief – hero with countdown, trailer, programme, expo zones, then the boarding-pass registration form */
+:root{
+  --space:#0A0F24; --deep:#121A3A; --panel:#18224A; --line:#2C3770;
+  --text:#F2F4FB; --muted:#AAB3D4; --flare:#FF7A3D; --ion:#5CC8FF; --ok:#4FD1A5; --err:#FF6B7A;
+  --paper:#F4F6FB; --ink:#1B2450;
+  --display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --body:"Figtree","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--space);color:var(--text);font-family:var(--body);font-size:17px;line-height:1.6;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--space)}
+#stars{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.wrap{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:var(--ion)}
+:focus-visible{outline:2px solid var(--ion);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);line-height:1.1;text-wrap:balance;margin:0}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--flare)}
+section{padding-block:72px}
+section > .wrap > header{display:grid;gap:12px;margin-bottom:36px;max-width:680px}
+h2{font-size:clamp(1.6rem,3.4vw,2.4rem);font-weight:700}
+.lead{color:var(--muted);font-size:1.08rem;max-width:62ch;margin:0}
+
+/* nav */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--space) 82%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px}
+.brand{font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:.02em;color:var(--text);text-decoration:none}
+.brand span{color:var(--flare)}
+.btn{display:inline-flex;align-items:center;gap:10px;font:600 1rem var(--body);border-radius:999px;padding:13px 24px;border:1px solid transparent;cursor:pointer;text-decoration:none;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--flare);color:var(--space)}
+.btn-primary:hover{background:#ff8f5c}
+.btn-ghost{border-color:var(--line);color:var(--text);background:transparent}
+.btn-ghost:hover{border-color:var(--ion)}
+nav .btn{padding:9px 18px;font-size:.92rem}
+
+/* hero */
+.hero{padding-block:72px 56px}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.9fr);gap:48px;align-items:center}
+.hero h1{font-size:clamp(2.6rem,7vw,5.2rem);font-weight:700;letter-spacing:-.01em}
+.hero h1 em{font-style:normal;color:var(--flare)}
+.hero .sub{font-size:clamp(1.05rem,2vw,1.3rem);color:var(--ion);margin:14px 0 22px;font-weight:500}
+.facts{display:flex;flex-wrap:wrap;gap:10px 22px;margin:0 0 26px;padding:0;list-style:none;color:var(--text);font-weight:600}
+.facts li{display:flex;align-items:center;gap:8px}
+.facts svg{width:18px;height:18px;flex:none;color:var(--flare)}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.desc{color:var(--muted);max-width:56ch;margin:0 0 26px}
+.count{background:var(--deep);border:1px solid var(--line);border-radius:18px;padding:26px;display:grid;gap:18px}
+.count .label{font-family:var(--mono);font-size:.78rem;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
+.tminus{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.tminus div{background:var(--panel);border-radius:12px;padding:14px 6px;text-align:center}
+.tminus b{display:block;font-family:var(--mono);font-size:clamp(1.5rem,3.4vw,2.2rem);font-variant-numeric:tabular-nums;color:var(--text)}
+.tminus small{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.altitude{display:flex;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:.8rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:14px}
+.altitude strong{color:var(--ion);font-weight:500}
+
+/* trailer */
+.video{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#000;max-width:100%;aspect-ratio:16/9}
+.video video{width:100%;height:100%;display:block;object-fit:cover}
+.vcap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;margin-top:12px;color:var(--muted);font-size:.92rem}
+
+/* days */
+.days{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.day{background:var(--deep);border:1px solid var(--line);border-radius:16px;padding:22px;display:grid;gap:8px;align-content:start;min-width:0}
+.day .d{font-family:var(--mono);font-size:.78rem;color:var(--ion);letter-spacing:.1em}
+.day h3{font-size:1.05rem;font-weight:500}
+.day p{margin:0;color:var(--muted);font-size:.95rem}
+.day.public{border-color:var(--flare)}
+.day.public .d{color:var(--flare)}
+
+/* zones */
+.zones{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.zone{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start;padding:22px;border-radius:16px;background:var(--deep);border:1px solid var(--line);min-width:0}
+.zone .n{font-family:var(--mono);font-size:.8rem;color:var(--space);background:var(--ion);border-radius:8px;padding:6px 9px}
+.zone:nth-child(odd) .n{background:var(--flare)}
+.zone h3{font-size:1.02rem;font-weight:500;margin-bottom:4px}
+.zone p{margin:0;color:var(--muted);font-size:.95rem}
+.future{margin-top:28px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.future div{border-left:2px solid var(--ion);padding:4px 0 4px 16px}
+.future b{display:block;font-family:var(--mono);color:var(--ion);font-size:.8rem;letter-spacing:.08em}
+.future span{color:var(--muted);font-size:.95rem}
+
+/* register */
+.reg .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:40px;align-items:start}
+.why{display:grid;gap:14px;margin:24px 0 0;padding:0;list-style:none}
+.why li{display:flex;gap:12px;color:var(--muted)}
+.why li::before{content:"";flex:none;width:8px;height:8px;margin-top:9px;border-radius:50%;background:var(--flare)}
+.pass{background:var(--paper);color:var(--ink);border-radius:20px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(0,0,0,.7)}
+.pass-head{background:var(--flare);color:var(--space);padding:14px 24px;display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase}
+form{padding:24px;display:grid;gap:16px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label,.legend{font-size:.82rem;font-weight:700;letter-spacing:.04em;color:#4A5480;display:block;margin-bottom:6px}
+input[type=text],input[type=email],select,textarea{width:100%;font:500 1rem var(--body);color:var(--ink);background:#fff;border:1.5px solid #CBD2E6;border-radius:10px;padding:11px 12px;color-scheme:light}
+input:focus,select:focus,textarea:focus{border-color:var(--ink);outline:none}
+textarea{min-height:76px;resize:vertical}
+fieldset{border:0;padding:0;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{margin:0;font-weight:600;font-size:.9rem;letter-spacing:0;color:var(--ink);display:inline-flex;align-items:center;gap:7px;border:1.5px solid #CBD2E6;border-radius:999px;padding:7px 13px;cursor:pointer;background:#fff}
+.chips input{accent-color:var(--flare);margin:0}
+.chips label:has(input:checked){border-color:var(--flare);background:#FFF1EA}
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.scale label{margin:0;text-align:center;border:1.5px solid #CBD2E6;border-radius:10px;padding:8px 0;cursor:pointer;font-family:var(--mono);color:var(--ink);background:#fff}
+.scale input{position:absolute;opacity:0;pointer-events:none}
+.scale label:has(input:checked){background:var(--ink);color:#fff;border-color:var(--ink)}
+.scale-ends{display:flex;justify-content:space-between;font-size:.78rem;color:#6C76A0;margin-top:4px}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:.9rem;color:#4A5480}
+.consent input{margin-top:4px;accent-color:var(--flare)}
+.err{color:#C0263A;font-size:.88rem;min-height:1.2em;margin:0}
+.tear{border:0;border-top:2px dashed #CBD2E6;margin:0}
+form .btn-primary{justify-content:center;width:100%}
+.done{padding:28px 24px;display:grid;gap:14px}
+.done h3{font-size:1.35rem;color:var(--ink)}
+.done dl{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0}
+.done dt{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;color:#6C76A0;text-transform:uppercase}
+.done dd{margin:0;font-weight:700}
+.done p{margin:0;color:#4A5480}
+.note{font-size:.85rem;color:#6C76A0}
+
+/* organiser panel */
+.panel{margin-top:32px;background:var(--deep);border:1px solid var(--line);border-radius:16px;padding:22px}
+.panel h3{font-size:1rem;font-weight:500;margin-bottom:12px}
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--muted);font-weight:600;font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase}
+
+footer{border-top:1px solid var(--line);padding-block:32px;color:var(--muted);font-size:.9rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
+.copy{display:inline-flex;gap:8px;align-items:center}
+.copy button{font:600 .8rem var(--body);background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:4px 10px;cursor:pointer}
+
+@media (max-width:900px){
+  .hero .wrap,.reg .wrap{grid-template-columns:1fr}
+  .days{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .future{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  section{padding-block:52px}
+  .days,.zones,.row{grid-template-columns:1fr}
+  nav .brand small{display:none}
+}
+</style>
+<style>body{margin:0}img{max-width:100%}</style>
+</head>
+<body>
+
+
+<canvas id="stars" aria-hidden="true"></canvas>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top">BEYOND EARTH <span>2027</span></a>
+    <a class="btn btn-primary" href="#register">Register your interest</a>
+  </div>
+</nav>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">International conference &amp; public expo</p>
+        <h1>Space is open for <em>business</em>.</h1>
+        <p class="sub">Beyond Earth 2027 – The Future of Commercial Space Tourism</p>
+        <ul class="facts">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>7–10 December 2027</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>Dubai Exhibition Centre, Expo City Dubai</li>
+        </ul>
+        <p class="desc">Four days where space-tourism operators, engineers, investors, regulators, students and the public meet to shape a safe, accessible and sustainable future for commercial spaceflight. Keynotes, peer-reviewed talks, hands-on workshops, an investor roundtable and a public space expo – in Dubai and live-streamed worldwide.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#register">Register your interest</a>
+          <a class="btn btn-ghost" href="#trailer">Watch the trailer</a>
+        </div>
+      </div>
+      <aside class="count" aria-label="Countdown to opening day">
+        <span class="label">T-minus to opening keynote · 7 Dec 2027, 09:00 GST</span>
+        <div class="tminus" id="tminus">
+          <div><b id="cd-d">—</b><small>days</small></div>
+          <div><b id="cd-h">—</b><small>hours</small></div>
+          <div><b id="cd-m">—</b><small>min</small></div>
+          <div><b id="cd-s">—</b><small>sec</small></div>
+        </div>
+        <div class="altitude"><span>Target altitude</span><strong>100 km · Kármán line</strong></div>
+        <div class="altitude"><span>Expected on site</span><strong>630 people · 25 exhibitors</strong></div>
+        <div class="altitude"><span>Online</span><strong>Live stream · 250+ passes</strong></div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="trailer">
+    <div class="wrap">
+      <header>
+        <p class="eyebrow">Trailer · 37 seconds</p>
+        <h2>For centuries, we looked up. Now, we are going.</h2>
+      </header>
+      <div class="video">
+        <video id="vid" controls preload="metadata" playsinline poster="poster.jpg">
+          <source src="trailer.mp4" type="video/mp4">
+          Your browser cannot play this video.
+        </video>
+      </div>
+      <div class="vcap"><span>Produced by Team 4 with Google Flow and CapCut.</span><span>Turn sound on for the voice-over.</span></div>
+    </div>
+  </section>
+
+  <section id="programme">
+    <div class="wrap">
+      <header>
+        <p class="eyebrow">Programme</p>
+        <h2>Four days, one public expo</h2>
+        <p class="lead">60-minute keynotes, 30-minute peer-reviewed talks in two parallel tracks, and every day finishes by 5 pm.</p>
+      </header>
+      <div class="days">
+        <article class="day public"><span class="d">TUE 7 DEC · OPEN TO ALL</span><h3>Public Space Expo</h3><p>Opening keynote, 25 exhibition stands, start-up pitch stage, schools programme and the space tourism experience.</p></article>
+        <article class="day"><span class="d">WED 8 DEC</span><h3>Technology &amp; Innovation</h3><p>Vehicles and spaceports, passenger safety and training, and an expert panel.</p></article>
+        <article class="day"><span class="d">THU 9 DEC</span><h3>Workshops &amp; Investment</h3><p>Medical readiness, spaceport operations, space law and insurance, financing – plus the investor roundtable.</p></article>
+        <article class="day"><span class="d">FRI 10 DEC</span><h3>Sustainability &amp; Regulation</h3><p>Space debris, launch emissions and the rules of the road. Closing keynote and awards.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <header>
+        <p class="eyebrow">Expo day · Your space boarding pass</p>
+        <h2>Try space tourism before it's your turn</h2>
+        <p class="lead">Every expo visitor gets a digital boarding pass and collects a stamp at four zones.</p>
+      </header>
+      <div class="zones">
+        <article class="zone"><span class="n">Z1</span><div><h3>VR suborbital flight</h3><p>Five minutes from launch to weightlessness to the curve of the Earth at 100 km.</p></div></article>
+        <article class="zone"><span class="n">Z2</span><div><h3>Astronaut readiness</h3><p>Balance, reaction and health-check stations used to prepare real space tourists.</p></div></article>
+        <article class="zone"><span class="n">Z3</span><div><h3>Suit-up &amp; photo</h3><p>Step into a flight suit and take home a launch-ready portrait.</p></div></article>
+        <article class="zone"><span class="n">Z4</span><div><h3>Future trips showroom</h3><p>Orbital hotel and Moon flyby models, with the operators who plan to fly them.</p></div></article>
+      </div>
+      <div class="future" aria-label="What space tourism might look like">
+        <div><b>TODAY</b><span>Suborbital hops: a few minutes of weightlessness, a few hundred thousand dollars.</span></div>
+        <div><b>2030s</b><span>Orbital stays on commercial stations and the first space hotels.</span></div>
+        <div><b>BEYOND</b><span>Moon flybys and fast point-to-point flights between continents.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="register" class="reg">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Register your interest</p>
+        <h2 style="margin-top:12px">Claim your boarding pass</h2>
+        <p class="lead" style="margin-top:14px">Two minutes. You'll be first to hear about early-bird tickets (AED 2,950 full pass, AED 75 expo day), speakers and the student competition.</p>
+        <ul class="why">
+          <li>Early-bird pricing opens April 2027</li>
+          <li>Student passes from AED 395</li>
+          <li>Live-stream passes for anywhere in the world</li>
+        </ul>
+      </div>
+      <div>
+        <div class="pass">
+          <div class="pass-head"><span>Space boarding pass</span><span>Flight BE-27</span></div>
+          <form id="form" novalidate>
+            <div class="row">
+              <div><label for="f-name">Full name</label><input id="f-name" type="text" autocomplete="name" placeholder="e.g. Sara Khan" required></div>
+              <div><label for="f-email">Email</label><input id="f-email" type="email" autocomplete="email" placeholder="you@example.com" required></div>
+            </div>
+            <div class="row">
+              <div><label for="f-role">I am a…</label>
+                <select id="f-role" required>
+                  <option value="">Choose one</option>
+                  <option>Student</option><option>Industry professional</option><option>Investor</option><option>Researcher / academic</option><option>Media</option><option>Space fan / general public</option>
+                </select></div>
+              <div><label for="f-from">Where did you hear about us?</label>
+                <select id="f-from">
+                  <option value="">Choose one</option>
+                  <option>Instagram / TikTok</option><option>LinkedIn</option><option>University or school</option><option>Friend or colleague</option><option>News / press</option><option>Other</option>
+                </select></div>
+            </div>
+            <fieldset>
+              <span class="legend">I'm interested in</span>
+              <div class="chips" id="f-int">
+                <label><input type="checkbox" id="i-expo" value="Public expo day">Public expo day</label>
+                <label><input type="checkbox" id="i-full" value="Full conference">Full conference</label>
+                <label><input type="checkbox" id="i-work" value="Workshops">Workshops</label>
+                <label><input type="checkbox" id="i-stream" value="Live stream">Live stream</label>
+                <label><input type="checkbox" id="i-spon" value="Sponsoring / exhibiting">Sponsoring / exhibiting</label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <span class="legend">How likely are you to attend?</span>
+              <div class="scale" id="f-likely">
+                <label><input type="radio" name="likely" id="l1" value="1">1</label>
+                <label><input type="radio" name="likely" id="l2" value="2">2</label>
+                <label><input type="radio" name="likely" id="l3" value="3">3</label>
+                <label><input type="radio" name="likely" id="l4" value="4">4</label>
+                <label><input type="radio" name="likely" id="l5" value="5">5</label>
+              </div>
+              <div class="scale-ends"><span>Just curious</span><span>Definitely</span></div>
+            </fieldset>
+            <div><label for="f-q">What would you most like to see? (optional)</label><textarea id="f-q" placeholder="A speaker, a topic, a question…"></textarea></div>
+            <label class="consent" for="f-ok"><input type="checkbox" id="f-ok"><span>Keep me updated about Beyond Earth 2027 by email.</span></label>
+            <p class="err" id="err" role="alert"></p>
+            <hr class="tear">
+            <button class="btn btn-primary" type="submit" id="submit">Register my interest</button>
+          </form>
+          <div class="done" id="done" hidden>
+            <span class="eyebrow">Boarding pass issued</span>
+            <h3 id="d-title">You're on the list.</h3>
+            <dl>
+              <div><dt>Passenger</dt><dd id="d-name">—</dd></div>
+              <div><dt>Flight</dt><dd>BE-27 · Dubai</dd></div>
+              <div><dt>Date</dt><dd>7–10 Dec 2027</dd></div>
+              <div><dt>Gate</dt><dd>Expo City Dubai</dd></div>
+            </dl>
+            <p id="d-msg">We'll email you when early-bird tickets open.</p>
+            <p class="note" id="d-note"></p>
+            <button class="btn btn-ghost" style="color:var(--ink);border-color:#CBD2E6;justify-self:start" type="button" id="again">Register someone else</button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Beyond Earth 2027 · Hosted by HSW Explorations · Organised by We do Conferences!, Dubai (Team 4)</span>
+    <span class="copy">info@beyondearth2027.ae <button type="button" id="copy">Copy</button></span>
+    <span>Concept landing page for a proposed conference.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* starfield */
+  const c=document.getElementById('stars'),x=c.getContext('2d');let st=[];
+  function size(){c.width=innerWidth*devicePixelRatio;c.height=innerHeight*devicePixelRatio;st=Array.from({length:Math.round(innerWidth*innerHeight/5000)},()=>({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.3*devicePixelRatio+.2,t:Math.random()*6}));draw(0)}
+  function draw(time){x.clearRect(0,0,c.width,c.height);for(const s of st){x.globalAlpha=.35+.35*Math.sin(s.t+time/1400);x.fillStyle='#DCE6FF';x.beginPath();x.arc(s.x,s.y,s.r,0,6.283);x.fill()}}
+  addEventListener('resize',size);size();
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches){(function loop(t){draw(t);requestAnimationFrame(loop)})(0)}
+
+  /* countdown */
+  const target=Date.UTC(2027,11,7,5,0,0); // 09:00 Gulf Standard Time
+  const pad=n=>String(n).padStart(2,'0');
+  function tick(){let s=Math.max(0,Math.floor((target-Date.now())/1000));
+    document.getElementById('cd-d').textContent=Math.floor(s/86400);
+    document.getElementById('cd-h').textContent=pad(Math.floor(s%86400/3600));
+    document.getElementById('cd-m').textContent=pad(Math.floor(s%3600/60));
+    document.getElementById('cd-s').textContent=pad(s%60);}
+  tick();setInterval(tick,1000);
+
+  /* copy */
+  document.getElementById('copy').addEventListener('click',e=>{
+    const b=e.currentTarget;navigator.clipboard.writeText('info@beyondearth2027.ae').then(()=>{b.textContent='Copied'},()=>{const r=document.createRange();r.selectNodeContents(b.previousSibling);const sel=getSelection();sel.removeAllRanges();sel.addRange(r)})});
+
+  /* registration */
+  const form=document.getElementById('form'),done=document.getElementById('done'),err=document.getElementById('err');
+  const ENDPOINT='https://formsubmit.co/ajax/Muhammad.Amaan@edu.regenteducation.ae';
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();err.textContent='';
+    const name=document.getElementById('f-name').value.trim(),email=document.getElementById('f-email').value.trim(),role=document.getElementById('f-role').value;
+    if(!name){err.textContent='Please add your name.';return}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent='Please enter a valid email address, like you@example.com.';return}
+    if(!role){err.textContent='Please choose what describes you best.';return}
+    const entry={name,email,role,heard:document.getElementById('f-from').value,
+      interests:[...document.querySelectorAll('#f-int input:checked')].map(i=>i.value),
+      likely:Number((document.querySelector('input[name=likely]:checked')||{}).value||0)||null,
+      wish:document.getElementById('f-q').value.trim(),updates:document.getElementById('f-ok').checked,at:new Date().toISOString()};
+    const btn=document.getElementById('submit');btn.disabled=true;btn.textContent='Issuing your pass…';
+    let saved=false;
+    try{
+      const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify({_subject:'Beyond Earth 2027 – new interest registration',_template:'table',_captcha:'false',
+          Name:entry.name,Email:entry.email,Role:entry.role,'Interested in':entry.interests.join(', ')||'-',
+          'Likely to attend (1-5)':entry.likely||'-','Heard via':entry.heard||'-','Would like to see':entry.wish||'-',
+          'Wants updates':entry.updates?'Yes':'No',Submitted:entry.at})});
+      const j=await r.json().catch(()=>({}));saved=r.ok&&String(j.success)!=='false';
+    }catch(x){saved=false}
+    if(!saved){btn.disabled=false;btn.textContent='Register my interest';err.textContent='We could not send your registration. Check your connection and try again.';return}
+    try{localStorage.setItem('be27-reg',JSON.stringify({name}))}catch(x){}
+    document.getElementById('d-name').textContent=name;
+    document.getElementById('d-title').textContent='You\'re on the list, '+name.split(' ')[0]+'.';
+    document.getElementById('d-note').textContent='Your response has been sent to the organisers.';
+    form.hidden=true;done.hidden=false;btn.disabled=false;btn.textContent='Register my interest';
+  });
+  document.getElementById('again').addEventListener('click',()=>{form.reset();done.hidden=true;form.hidden=false;document.getElementById('f-name').focus()});
+})();
+</script>
+
+</body>
+</html>
