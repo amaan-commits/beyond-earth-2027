@@ -281,12 +281,12 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
               <div><label for="f-role">I am a…</label>
                 <select id="f-role" required>
                   <option value="">Choose one</option>
-                  <option>Student</option><option>Industry professional</option><option>Investor</option><option>Researcher / academic</option><option>Media</option><option>Space fan / general public</option>
+                  <option value="Student">Student</option><option value="Industry professional">Industry professional</option><option value="Investor">Investor</option><option value="Researcher">Researcher</option><option value="academic">Academic</option><option value="Media">Media</option><option value="Space Fan">Space fan</option><option value="General public">General public</option>
                 </select></div>
               <div><label for="f-from">Where did you hear about us?</label>
                 <select id="f-from">
                   <option value="">Choose one</option>
-                  <option>Instagram / TikTok</option><option>LinkedIn</option><option>University or school</option><option>Friend or colleague</option><option>News / press</option><option>Other</option>
+                  <option value="Instagram">Instagram</option><option value="TikTok">TikTok</option><option value="LinkedIn">LinkedIn</option><option value="University or school">University or school</option><option value="Friend or colleague">Friend or colleague</option><option value="News">News</option><option value="press">Press</option><option value="Other">Other</option>
                 </select></div>
             </div>
             <fieldset>
@@ -296,7 +296,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
                 <label><input type="checkbox" id="i-full" value="Full conference">Full conference</label>
                 <label><input type="checkbox" id="i-work" value="Workshops">Workshops</label>
                 <label><input type="checkbox" id="i-stream" value="Live stream">Live stream</label>
-                <label><input type="checkbox" id="i-spon" value="Sponsoring / exhibiting">Sponsoring / exhibiting</label>
+                <label><input type="checkbox" id="i-spon" value="Sponsoring">Sponsoring</label>
+                <label><input type="checkbox" id="i-exh" value="exhibiting">Exhibiting</label>
               </div>
             </fieldset>
             <fieldset>
@@ -369,20 +370,36 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
 
   /* registration */
   const form=document.getElementById('form'),done=document.getElementById('done'),err=document.getElementById('err');
-  const ENDPOINT='https://formsubmit.co/ajax/amaanzah24@gmail.com';
+  const ENDPOINT='https://formsubmit.co/ajax/Muhammad.Amaan@edu.regenteducation.ae';
+  /* Google Form (filled in from the pre-filled link). When ACTION is set, answers go to the Google Form. */
+  const GFORM={ACTION:'https://docs.google.com/forms/d/e/1FAIpQLSdUfpbGOqw6mQOrAaIQtvCLKnUn6fJE_DE14JT6Yy9Ofbz8uw/formResponse', name:'entry.573421074', email:'entry.1839514933', role:'entry.1100140257', interests:'entry.1870381254', likely:'entry.665441071', heard:'entry.551456940', wish:'', updates:'entry.1366981350'};
+  async function sendGoogle(entry){
+    const b=new URLSearchParams();
+    const add=(k,v)=>{if(k&&v!==undefined&&v!==null&&v!=='')b.append(k,String(v))};
+    add(GFORM.name,entry.name);add(GFORM.email,entry.email);add(GFORM.role,entry.role);
+    (entry.interests||[]).forEach(v=>add(GFORM.interests,v));
+    add(GFORM.likely,entry.likely);if(entry.heard==='Other'){add(GFORM.heard,'__other_option__');add(GFORM.heard+'.other_option_response','Other')}else add(GFORM.heard,entry.heard);add(GFORM.wish,entry.wish);
+    add(GFORM.updates,entry.updates?'Yes':'No');
+    await fetch(GFORM.ACTION,{method:'POST',mode:'no-cors',body:b});
+    return true;
+  }
   form.addEventListener('submit',async e=>{
     e.preventDefault();err.textContent='';
     const name=document.getElementById('f-name').value.trim(),email=document.getElementById('f-email').value.trim(),role=document.getElementById('f-role').value;
     if(!name){err.textContent='Please add your name.';return}
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent='Please enter a valid email address, like you@example.com.';return}
     if(!role){err.textContent='Please choose what describes you best.';return}
+    if(!document.getElementById('f-from').value){err.textContent='Please tell us where you heard about us.';return}
+    if(!document.querySelector('#f-int input:checked')){err.textContent='Please tick at least one thing you are interested in.';return}
+    if(!document.querySelector('input[name=likely]:checked')){err.textContent='Please choose how likely you are to attend (1–5).';return}
     const entry={name,email,role,heard:document.getElementById('f-from').value,
       interests:[...document.querySelectorAll('#f-int input:checked')].map(i=>i.value),
       likely:Number((document.querySelector('input[name=likely]:checked')||{}).value||0)||null,
       wish:document.getElementById('f-q').value.trim(),updates:document.getElementById('f-ok').checked,at:new Date().toISOString()};
     const btn=document.getElementById('submit');btn.disabled=true;btn.textContent='Issuing your pass…';
     let saved=false,pending=false,msg='';
-    try{
+    if(GFORM.ACTION){try{saved=await sendGoogle(entry)}catch(x){saved=false}}
+    else try{
       const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
         body:JSON.stringify({_subject:'Beyond Earth 2027 – new interest registration',_template:'table',_captcha:'false',
           Name:entry.name,Email:entry.email,Role:entry.role,'Interested in':entry.interests.join(', ')||'-',
