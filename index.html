@@ -369,7 +369,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
 
   /* registration */
   const form=document.getElementById('form'),done=document.getElementById('done'),err=document.getElementById('err');
-  const ENDPOINT='https://formsubmit.co/ajax/Muhammad.Amaan@edu.regenteducation.ae';
+  const ENDPOINT='https://formsubmit.co/ajax/amaanzah24@gmail.com';
   form.addEventListener('submit',async e=>{
     e.preventDefault();err.textContent='';
     const name=document.getElementById('f-name').value.trim(),email=document.getElementById('f-email').value.trim(),role=document.getElementById('f-role').value;
@@ -381,7 +381,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
       likely:Number((document.querySelector('input[name=likely]:checked')||{}).value||0)||null,
       wish:document.getElementById('f-q').value.trim(),updates:document.getElementById('f-ok').checked,at:new Date().toISOString()};
     const btn=document.getElementById('submit');btn.disabled=true;btn.textContent='Issuing your pass…';
-    let saved=false;
+    let saved=false,pending=false,msg='';
     try{
       const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
         body:JSON.stringify({_subject:'Beyond Earth 2027 – new interest registration',_template:'table',_captcha:'false',
@@ -389,12 +389,15 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
           'Likely to attend (1-5)':entry.likely||'-','Heard via':entry.heard||'-','Would like to see':entry.wish||'-',
           'Wants updates':entry.updates?'Yes':'No',Submitted:entry.at})});
       const j=await r.json().catch(()=>({}));saved=r.ok&&String(j.success)!=='false';
-    }catch(x){saved=false}
-    if(!saved){btn.disabled=false;btn.textContent='Register my interest';err.textContent='We could not send your registration. Check your connection and try again.';return}
+      msg=String(j.message||'');
+      if(/activat/i.test(msg)){saved=true;pending=true}
+    }catch(x){saved=false;msg=''}
+    if(!saved){btn.disabled=false;btn.textContent='Register my interest';
+      err.textContent=location.protocol==='file:'?'The form only sends from the published website link, not from the file opened on your computer.':(msg?('Not sent: '+msg):'We could not send your registration. Check your connection and try again.');return}
     try{localStorage.setItem('be27-reg',JSON.stringify({name}))}catch(x){}
     document.getElementById('d-name').textContent=name;
     document.getElementById('d-title').textContent='You\'re on the list, '+name.split(' ')[0]+'.';
-    document.getElementById('d-note').textContent='Your response has been sent to the organisers.';
+    document.getElementById('d-note').textContent=pending?'Thanks! (Organisers: this form is waiting to be activated – check the inbox for the FormSubmit activation email.)':'Your response has been sent to the organisers.';
     form.hidden=true;done.hidden=false;btn.disabled=false;btn.textContent='Register my interest';
   });
   document.getElementById('again').addEventListener('click',()=>{form.reset();done.hidden=true;form.hidden=false;document.getElementById('f-name').focus()});
