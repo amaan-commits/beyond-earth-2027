@@ -372,7 +372,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px}
   const form=document.getElementById('form'),done=document.getElementById('done'),err=document.getElementById('err');
   const ENDPOINT='https://formsubmit.co/ajax/Muhammad.Amaan@edu.regenteducation.ae';
   /* Google Form (filled in from the pre-filled link). When ACTION is set, answers go to the Google Form. */
-  const GFORM={ACTION:'https://docs.google.com/forms/d/e/1FAIpQLSdUfpbGOqw6mQOrAaIQtvCLKnUn6fJE_DE14JT6Yy9Ofbz8uw/formResponse', name:'entry.573421074', email:'entry.1839514933', role:'entry.1100140257', interests:'entry.1870381254', likely:'entry.665441071', heard:'entry.551456940', wish:'', updates:'entry.1366981350'};
+  const GFORM={ACTION:'https://docs.google.com/forms/d/e/1FAIpQLSdUfpbGOqw6mQOrAaIQtvCLKnUn6fJE_DE14JT6Yy9Ofbz8uw/formResponse', name:'entry.573421074', email:'entry.1839514933', role:'entry.1100140257', interests:'entry.1870381254', likely:'entry.665441071', heard:'entry.551456940', wish:'entry.1519293719', updates:'entry.1366981350'};
   async function sendGoogle(entry){
     const b=new URLSearchParams();
     const add=(k,v)=>{if(k&&v!==undefined&&v!==null&&v!=='')b.append(k,String(v))};
